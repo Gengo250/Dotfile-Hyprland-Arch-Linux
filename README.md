@@ -225,6 +225,7 @@ This rice utilized pywal to create custom colorscemes depending on the wallpaper
 ![](screenshots/nvim.png)
 
 ## Credits
+- **[hayyaoe](https://github.com/hayyaoe) ← original Zenities dotfiles**
 - **[Rxyhn](https://github.com/rxyhn/tokyo)**
 - **[saimoomedits](https://github.com/saimoomedits/eww-widgets/tree/main)**
 - **[Vimjoyer](https://www.youtube.com/@vimjoyer)**
