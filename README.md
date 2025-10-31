@@ -1,5 +1,6 @@
 
-# Zenities Hyprland 💧
+# 🌿 Zenities Hyprland 💧⚡
+
 
 
 ![](screenshots/hyperland12.png)
@@ -219,8 +220,8 @@ This rice utilized pywal to create custom colorscemes depending on the wallpaper
 ## Screenshots
 
 ![](screenshots/hero-new.png)
-![](screenshots/tmux-ncspot-cava.png)
 ![](screenshots/hyperland11.png)
+![](screenshots/tmux-ncspot-cava.png)
 ![](screenshots/nvim.png)
 
 ## Credits
