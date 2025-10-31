@@ -1,7 +1,9 @@
 
 # Zenities Hyprland 💧
-![](screenshots/hero-new.png)
-![](screenshots/tmux-ncspot-cava.png)
+
+
+![](screenshots/hyperland12.png)
+![](screenshots/hyperland13.png)
 
 Thank you so much for visiting my Hyprland rice. I'm relatively new to ricing, and while it's no where near perfect, I've put a lot of care into it. This rice is inspired by so many awesome people's work, though I regret I can't list everyone by name
 
@@ -210,8 +212,8 @@ This rice utilized pywal to create custom colorscemes depending on the wallpaper
 
 ## Screenshots
 
-![](screenshots/hyperland12.png)
-![](screenshots/hyperland13.png)
+![](screenshots/hero-new.png)
+![](screenshots/tmux-ncspot-cava.png)
 ![](screenshots/hyperland11.png)
 ![](screenshots/nvim.png)
 
