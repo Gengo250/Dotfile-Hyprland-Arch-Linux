@@ -90,14 +90,28 @@ For more details or issues, please visit the repository’s [issues page](https:
 
 ### ⚡ Launch Applications
 
-| Action                 | Keybind                    | Description                          |
-|------------------------|----------------------------|--------------------------------------|
-| Terminal (tiled)       | `SUPER + RETURN`           | Launch terminal with `tmux`          |
-| Terminal (floating)    | `SUPER + SHIFT + RETURN`   | Launch floating terminal             |
-| File Manager (Yazi)    | `SUPER + M`                | Launch Yazi via custom script        |
-| Yazi (floating)        | `SUPER + SHIFT + M`        | Launch Yazi in floating window       |
-| Browser                | `SUPER + B`                | Launch your default browser          |
-| App Launcher / Menu    | `SUPER + SPACE`            | Launch application menu (`$menu`)    |
+
+| Action                   | Keybind                  | Description                                   |
+|--------------------------|--------------------------|-----------------------------------------------|
+| Terminal (tiled)         | `SUPER + RETURN`         | Launch terminal with `tmux`                   |
+| Terminal (floating)      | `SUPER + SHIFT + RETURN` | Launch floating terminal                      |
+| File Manager (Yazi)      | `SUPER + M`              | Launch Yazi via custom script                 |
+| Yazi (floating)          | `SUPER + SHIFT + M`      | Launch Yazi in floating window                |
+| Browser                  | `SUPER + B`              | Launch your default browser                   |
+| App Launcher / Menu      | `SUPER + SPACE`          | Launch application menu (`$menu`)             |
+| VSCode / Neovim          | `SUPER + SHIFT + V`      | Launch code editor (VSCode ou Neovim)         |
+| Spotify / ncspot         | `SUPER + S`              | Launch Spotify (ou ncspot, conforme config)   |
+| File Manager (Nautilus)  | `SUPER + E`              | Launch Nautilus / file manager gráfico        |
+
+---
+
+
+### 📸 Screenshot
+
+| Action           | Keybind             | Description            |
+|------------------|---------------------|------------------------|
+| Screenshot       | `SUPER + SHIFT + S` | Take a screenshot      |
+
 
 ---
 
@@ -196,9 +210,9 @@ This rice utilized pywal to create custom colorscemes depending on the wallpaper
 
 ## Screenshots
 
-![](screenshots/hero-new.png)
-![](screenshots/tmux-ncspot-cava.png)
-![](screenshots/wallpaper-switcher.png)
+![](screenshots/hyperland12.png)
+![](screenshots/hyperland13.png)
+![](screenshots/hyperland11.png)
 ![](screenshots/nvim.png)
 
 ## Credits
@@ -206,6 +220,4 @@ This rice utilized pywal to create custom colorscemes depending on the wallpaper
 - **[saimoomedits](https://github.com/saimoomedits/eww-widgets/tree/main)**
 - **[Vimjoyer](https://www.youtube.com/@vimjoyer)**
 
-## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=hayyaoe/zenities&type=Date)](https://www.star-history.com/#hayyaoe/zenities&Date)
