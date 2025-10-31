@@ -1,39 +1,74 @@
 #!/bin/bash
 
-battery_info=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0)
+# pega o primeiro device de bateria que o upower conhecer
+DEV=$(upower -e | grep -E 'BAT|battery' | head -n1)
 
-time_to_empty=$(echo "$battery_info" | awk '/time to empty/ {print $4, $5}')
-time_to_full=$(echo "$battery_info" | awk '/time to full/ {print $4, $5}')
+# se não tiver bateria (desktop/VM)
+if [ -z "$DEV" ]; then
+  echo "—"
+  exit 0
+fi
 
-convert_time() {
-    local time_value=$1
-    local unit=$2
-    local hours=0
-    local minutes=0
+INFO=$(upower -i "$DEV")
 
-    if [[ "$time_value" == *"hours"* ]]; then
-        # Convert hours to integer and minutes
-        numeric_value=$(echo "$time_value" | awk '{print $1}')
-        hours=${numeric_value%.*}
-        minutes=$(echo "scale=0; (${numeric_value#*.} * 60)/1" | bc)
-    elif [[ "$time_value" == *"minutes"* ]]; then
-        # If time is in minutes only
-        numeric_value=$(echo "$time_value" | awk '{print $1}')
-        minutes=${numeric_value%.*}
-    fi
+STATE=$(echo "$INFO" | awk -F: '/state:/ {gsub(/^[ \t]+/, "", $2); print $2}')
+TIME_EMPTY=$(echo "$INFO" | awk -F: '/time to empty:/ {gsub(/^[ \t]+/, "", $2); print $2}')
+TIME_FULL=$(echo "$INFO" | awk -F: '/time to full:/  {gsub(/^[ \t]+/, "", $2); print $2}')
 
-    # Ensure values are numbers
-    [[ -z "$hours" ]] && hours=0
-    [[ -z "$minutes" ]] && minutes=0
+# escolhe qual tempo usar
+if [ "$STATE" = "discharging" ] && [ -n "$TIME_EMPTY" ]; then
+  RAW_TIME="$TIME_EMPTY"
+elif [ -n "$TIME_FULL" ]; then
+  RAW_TIME="$TIME_FULL"
+else
+  echo "—"
+  exit 0
+fi
 
-    echo "$hours h $minutes min to $unit"
+# RAW_TIME vem tipo: "2.3 hours" ou "2,3 horas" ou "45.0 minutes"
+NUM=$(echo "$RAW_TIME" | awk '{print $1}' | tr ',' '.')
+UNIT=$(echo "$RAW_TIME" | awk '{print $2}')
+
+# função pra arredondar fração -> minutos
+to_minutes() {
+  frac="$1"
+  if [ -z "$frac" ]; then
+    echo 0
+  else
+    # precisa ter bc instalado
+    echo "0.$frac*60" | bc -l | awk '{printf "%d\n", $1 + 0.5}'
+  fi
 }
 
-if [[ -n "$time_to_empty" ]]; then
-    convert_time "$time_to_empty" "empty"
-elif [[ -n "$time_to_full" ]]; then
-    convert_time "$time_to_full" "full"
+H=0
+M=0
+
+case "$UNIT" in
+  hour|hours|hora|horas)
+    H=$(echo "$NUM" | cut -d. -f1)
+    FRAC=$(echo "$NUM" | cut -s -d. -f2)
+    M=$(to_minutes "$FRAC")
+    ;;
+  minute|minutes|minuto|minutos)
+    M=$(printf "%.0f" "$NUM")
+    ;;
+  *)
+    # se vier um formato inesperado, mostra cru mesmo
+    echo "$RAW_TIME"
+    exit 0
+    ;;
+esac
+
+# normaliza se der 60 min+
+if [ "$M" -ge 60 ]; then
+  H=$((H + M/60))
+  M=$((M % 60))
+fi
+
+# saída final
+if [ "$M" -eq 0 ]; then
+  echo "${H}h"
 else
-    echo "Battery status: Time information not available."
+  echo "${H}h ${M}min"
 fi
 

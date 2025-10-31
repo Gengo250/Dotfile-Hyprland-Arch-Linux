@@ -1,2 +1,3 @@
-printf "%.0f\n" $(top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8}')
+#!/bin/bash
+LC_ALL=C top -bn1 | awk '/Cpu\(s\):/ {printf "%.0f\n", 100 - $8}'
 
