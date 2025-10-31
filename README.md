@@ -5,9 +5,11 @@
 ![](screenshots/hyperland12.png)
 ![](screenshots/hyperland13.png)
 
-Thank you so much for visiting my Hyprland rice. I'm relatively new to ricing, and while it's no where near perfect, I've put a lot of care into it. This rice is inspired by so many awesome people's work, though I regret I can't list everyone by name
+Thank you for checking out my Hyprland rice! 🎉  
+This is my **first** full rice, and it’s heavily inspired by the original dotfiles from [hayyaoe/zenities](https://github.com/hayyaoe/zenities). I adapted it to my workflow (Hypr + Waybar/Eww + scripts + wallpapers) so I can reuse it on my own machines and share it with friends.
 
-I hope you enjoy it, and feel free to use this rice!
+It’s not perfect yet, but you’re welcome to use it, tweak it, or compare it with the original project.
+
 
 ## Prerequisite
 You have to disable autogenerate on the `hyprland.conf`.
@@ -66,14 +68,15 @@ This installation script **only works on Arch Linux** and requires **Hyprland** 
 2. Clone this repository in your Home directory:
 
     ```bash
-    cd $HOME
-    git clone https://github.com/hayyaoe/zenities
+    cd ~
+    git clone https://github.com/Gengo250/Dotfile-Hyprland-Arch-Linux.git
     ```
 
 3. Navigate to the project directory:
 
     ```bash
-    cd zenities
+    cd ~/Dotfile-Hyprland-Arch-Linux
+    chmod +x INSTALL.sh
     ```
 
 4. Run the installation script:
@@ -83,6 +86,9 @@ This installation script **only works on Arch Linux** and requires **Hyprland** 
     ```
 
 ---
+
+
+⚠️ **If you have problems with this customized version**, you can always use the original author’s repo (it’s the source this one is based on):
 
 For more details or issues, please visit the repository’s [issues page](https://github.com/hayyaoe/zenities/issues).
 
