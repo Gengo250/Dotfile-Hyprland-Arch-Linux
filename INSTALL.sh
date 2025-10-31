@@ -1,19 +1,21 @@
 #!/bin/bash
 
-# Install necessary packages via pacman
-cd $HOME
+# 1) instalar pacotes base
+cd "$HOME"
 sudo pacman -S --noconfirm github-cli stow pamixer brightnessctl playerctl ncspot rofi-wayland hyprlock hypridle hyprpaper yazi neovim bottom networkmanager rustup zsh imagemagick acpi pavucontrol
 
-# Backup Existing Config
+# 2) diretórios do sistema
 CONFIG_DIR="$HOME/.config"
-DOTFILES_CONFIG="$HOME/zenities/.config"
+DOTFILES_DIR="$HOME/Dotfile-Hyprland-Arch-Linux"
+DOTFILES_CONFIG="$DOTFILES_DIR/.config"
 BACKUP_SUFFIX=".bak"
 
 echo "Backing up configuration directories in $CONFIG_DIR based on dotfiles in $DOTFILES_CONFIG"
-# Change to the .config folder
+
+# ir pro ~/.config
 cd "$CONFIG_DIR" || { echo "Could not access $CONFIG_DIR"; exit 1; }
 
-# Loop over every directory in the dotfiles repo
+# 3) backup de cada pasta que EXISTE no teu repo
 for dir in "$DOTFILES_CONFIG"/*/; do
   folder_name=$(basename "$dir")
   if [ -d "$CONFIG_DIR/$folder_name" ]; then
@@ -24,11 +26,12 @@ for dir in "$DOTFILES_CONFIG"/*/; do
   fi
 done
 
+# 4) arquivos soltos
 FILES=(.zshrc .zshenv .tmux.conf .p10k.zsh wallpapers scripts screenshots)
 
 echo "Backing up individual files in $HOME"
 for file in "${FILES[@]}"; do
-  if [ -f "$HOME/$file" ]; then
+  if [ -e "$HOME/$file" ]; then
     echo "Backing up file: $file"
     mv "$HOME/$file" "$HOME/${file}${BACKUP_SUFFIX}"
   else
@@ -36,6 +39,7 @@ for file in "${FILES[@]}"; do
   fi
 done
 
+# 5) cache do wal
 CACHE_WAL="$HOME/.cache/wal"
 CACHE_WAL_BAK="$HOME/.cache/wal.bak"
 
@@ -47,29 +51,31 @@ else
   echo "$CACHE_WAL not found; skipping..."
 fi
 
+# 6) aplicar dotfiles com stow (AGORA NO TEU REPO)
 echo "Applying dotfiles with stow"
-cd "$HOME/zenities" || { echo "Could not access $HOME/zenities"; exit 1; }
+cd "$DOTFILES_DIR" || { echo "Could not access $DOTFILES_DIR"; exit 1; }
 stow .
 
-# Go back to home directory
-cd $HOME
+# 7) voltar pro home
+cd "$HOME"
 
-# Install yay (AUR helper)
+# 8) instalar yay
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si --noconfirm
 
-# Install additional packages via yay
-yay -S --noconfirm neofetch cmatrix cava python-pywal ttf-iosevka otf-hermit-nerd gvfs dbus libdbusmenu-glib libdbusmenu-gtk3 gtk-layer-shell brave-bin zoxide eza fzf thefuck jq socat tmux nvm btop hyprshot bluez bluez-utils bluez-obex bluetuith python-gobject 
+# 9) pacotes via yay
+yay -S --noconfirm neofetch cmatrix cava python-pywal ttf-iosevka otf-hermit-nerd gvfs dbus libdbusmenu-glib libdbusmenu-gtk3 gtk-layer-shell brave-bin zoxide eza fzf thefuck jq socat tmux nvm btop hyprshot bluez bluez-utils bluez-obex bluetuith python-gobject
 
-# Install Powerlevel10k for zsh
+# 10) powerlevel10k
 yay -S --noconfirm zsh-theme-powerlevel10k-git
 echo 'source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
 
-# Eww installation
-cd $HOME
+# 11) eww
+cd "$HOME"
 
-curl --proto '=https' -- tlsv1.2 -sSf https://sh.rustup.rs | sh
+# (tinha um espacinho errado aqui no original)
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 git clone https://github.com/elkowar/eww
 cd eww
@@ -78,7 +84,7 @@ cd target/release
 chmod +x ./eww
 sudo cp ./eww /usr/local/bin/
 
-# Network Manager setup
+# 12) network manager e bluetooth
 sudo systemctl disable systemd-resolved
 sudo systemctl disable systemd-networkd
 sudo systemctl enable NetworkManager
@@ -86,10 +92,8 @@ sudo systemctl start NetworkManager
 sudo systemctl enable bluetooth.service
 sudo systemctl start bluetooth.service
 
-# Change shell to zsh
+# 13) shell
 chsh -s /usr/bin/zsh
 
-# Reboot the system
 echo "Installation complete. The system will now reboot."
 sudo reboot
-
