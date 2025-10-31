@@ -1,0 +1,21 @@
+set $wallpaper /home/abuku/wallpapers/8.jpg
+
+set $background #231b30
+set $foreground #d3f2ef
+
+set $color0 #231b30
+set $color1 #3FADC6
+set $color2 #3698F3
+set $color3 #E0AEBE
+set $color4 #9FCBBB
+set $color5 #A2D1D7
+set $color6 #99FEF6
+set $color7 #d3f2ef
+set $color8 #93a9a7
+set $color9 #3FADC6
+set $color10 #3698F3
+set $color11 #E0AEBE
+set $color12 #9FCBBB
+set $color13 #A2D1D7
+set $color14 #99FEF6
+set $color15 #d3f2ef
