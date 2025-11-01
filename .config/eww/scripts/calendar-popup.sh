@@ -1,26 +1,20 @@
-calendar(){
-LOCK_FILE="$HOME/.cache/eww-calendar.lock"
-EWW_BIN="$HOME/eww/target/release/eww"
+#!/bin/bash
 
-run() {
-    ${EWW_BIN} -c $HOME/.config/eww/ open calendar
-}
+EWW_BIN=${EWW_BIN:-eww}
+CFG="$HOME/.config/eww"
+LOCK="$HOME/.cache/eww-calendar.lock"
 
-# Run eww daemon if not running
-if [[ ! `pidof eww` ]]; then
-    ${EWW_BIN} daemon
-    sleep 1
+# garante que o daemon tá rodando
+if ! pgrep -x eww >/dev/null; then
+  "$EWW_BIN" daemon --config "$CFG"
+  sleep 0.3
 fi
 
-# Open widgets
-if [[ ! -f "$LOCK_FILE" ]]; then
-    touch "$LOCK_FILE"
-    run
+if [ ! -f "$LOCK" ]; then
+  touch "$LOCK"
+  "$EWW_BIN" --config "$CFG" open calendar
 else
-    ${EWW_BIN} -c $HOME/.config/eww/ close calendar
-    rm "$LOCK_FILE"
+  "$EWW_BIN" --config "$CFG" close calendar
+  rm -f "$LOCK"
 fi
-}
 
-
-calendar
